@@ -1,0 +1,5 @@
+/venv/
+.env
+local_models/
+/vectorstore/
+/rag/__pycache__
