@@ -1,5 +1,7 @@
-/venv/
 .env
+.DS_Store
+/venv/
 local_models/
-/vectorstore/
+/qdrant_data/
 /rag/__pycache__
+/zap-docs/matter-spec/

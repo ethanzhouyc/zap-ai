@@ -1,11 +1,12 @@
 requests
 dotenv
-langchain-chroma
 
 langchain-text-splitters
-langchain[openai]
 langchain-core
-
 langchain-huggingface
 sentence-transformers
 huggingface-hub
+
+qdrant-client
+
+pdfplumber

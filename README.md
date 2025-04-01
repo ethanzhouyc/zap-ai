@@ -20,3 +20,15 @@ Run the following command to create a `.env` file:
 cp .env.example .env
 ```
 Then open `.env` and replace the placeholder with your own API key.
+
+### 4. Run the Application
+```
+python rag/main.py
+```
+
+### 5. First-Time Setup FAQ
+- During setup, installing the local embedding model requires turning off the Silabs VPN.
+
+- Model download and document indexing may take a while to complete.
+
+- When asking questions, the app uses a Silabs-hosted LLM, so ensure you are connected to the Silabs VPN.

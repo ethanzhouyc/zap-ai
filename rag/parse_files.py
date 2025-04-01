@@ -5,7 +5,7 @@ import requests
 import os
 
 zap_dev_doc_url = "https://api.github.com/repos/project-chip/zap/contents/docs"
-test_doc_directory = "./test-docs"
+zap_user_doc_directory = "./zap-docs/zap-user-docs"
 
 # fetch the contents of all markdown files under a given Github repo URL
 def get_markdown_files_from_url(repo_url):
@@ -35,13 +35,13 @@ def get_markdown_files_from_url(repo_url):
     return []
 
 def get_zap_dev_docs():
-  return get_markdown_files_from_url(zap_dev_doc_url)
+    return get_markdown_files_from_url(zap_dev_doc_url)
 
-def get_test_zap_dev_docs():
+def get_zap_user_docs():
     documents = []
-    for filename in os.listdir(test_doc_directory):
+    for filename in os.listdir(zap_user_doc_directory):
         if filename.endswith(".md"):
-            file_path = os.path.join(test_doc_directory, filename)
+            file_path = os.path.join(zap_user_doc_directory, filename)
             with open(file_path, "r", encoding="utf-8") as file:
                 content = file.read()
                 doc = Document(
