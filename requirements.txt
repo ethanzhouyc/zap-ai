@@ -3,10 +3,7 @@ dotenv
 
 langchain-text-splitters
 langchain-core
-langchain-huggingface
 sentence-transformers
 huggingface-hub
 
 qdrant-client
-
-pdfplumber

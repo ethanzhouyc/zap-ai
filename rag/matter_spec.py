@@ -1,3 +1,6 @@
+# Processes Matter spec PDF files.
+# Not used in current implementation as performance is not satisfactory
+
 import os
 import glob
 import pdfplumber

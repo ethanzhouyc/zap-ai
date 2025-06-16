@@ -1,14 +1,17 @@
-# This script contains functions to fetch and parse external document files.
+# Fetch and parse ZAP document files.
 
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 import requests
 import os
 
-zap_dev_doc_url = "https://api.github.com/repos/project-chip/zap/contents/docs"
+zap_dev_doc_dir = "https://api.github.com/repos/project-chip/zap/contents/docs"
 zap_user_doc_directory = "./zap-docs/zap-user-docs"
 
-# fetch the contents of all markdown files under a given Github repo URL
+ZAP_DOC_COLLECTION_NAME = "zap_docs"
+
 def get_markdown_files_from_url(repo_url):
+  '''Fetch the contents of all markdown files under a given Github repo URL.'''
   headers = {"Accept": "application/vnd.github.v3+json"}
   response = requests.get(repo_url, headers=headers)
   
@@ -34,8 +37,10 @@ def get_markdown_files_from_url(repo_url):
     print(f"Failed to fetch files: {response.status_code}")
     return []
 
+
 def get_zap_dev_docs():
-    return get_markdown_files_from_url(zap_dev_doc_url)
+    return get_markdown_files_from_url(zap_dev_doc_dir)
+
 
 def get_zap_user_docs():
     documents = []
@@ -51,3 +56,27 @@ def get_zap_user_docs():
                 documents.append(doc)
     
     return documents
+
+
+def load_and_split_zap_docs():
+    """Fetch and split ZAP documentation into chunks."""
+    # get ZAP docs and split them into chunks
+    zap_user_docs = get_zap_user_docs()
+    zap_dev_docs = get_zap_dev_docs()
+    zap_docs = zap_user_docs + zap_dev_docs
+
+    print(f"📂 Number of files in zap_user_docs: {len(zap_user_docs)}")
+    print(f"📂 Number of files in zap_dev_docs: {len(zap_dev_docs)}")
+
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    splitted_documents = text_splitter.split_documents(zap_docs)
+
+    texts = [doc.page_content for doc in splitted_documents]
+
+    textData = [
+        {"source": doc.metadata.get("source", ""), "text": doc.page_content}
+        for doc in splitted_documents
+    ]
+
+    print(f"✅ Successfully split ZAP documents into {len(textData)} chunks!")
+    return texts, textData

@@ -1,4 +1,4 @@
-# This script sets API keys 
+# Sets API keys.
 
 import requests
 import os
@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Set the LLM and embedding models here
 # LLM_MODEL = "llama3.1:8b"
-# LLM_MODEL = "gpt-4o"
-LLM_MODEL = "gemma3:27b"
+LLM_MODEL = "gpt-4o"
+# LLM_MODEL = "gemma3:27b"
 EMBEDDING_MODEL = "text-embedding-3-large"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
@@ -85,7 +86,7 @@ class LiteLLMEmbeddings(Embeddings):
     def embed_query(self, text):
         return get_embeddings([text])[0]
 
-# put the following code in main.py to test API services
+# code for testing API services
 # print(api_services.get_models())
 # print(api_services.get_embeddings(["What is the purpose of life?", "What is the meaning of life?"]))
 # print(api_services.get_model_response("What is the purpose of life?"))
