@@ -1,9 +1,9 @@
 # retrieve the most relevant documents from Qdrant vector store using vector search.
 
-from qdrant_db import client
-from embeddings import embed_text
-from parse_zap_docs import ZAP_DOC_COLLECTION_NAME
-from parse_matter_xmls import MATTER_XML_COLLECTION_NAME
+from rag.qdrant_db import client
+from rag.embeddings import embed_text
+from rag.parse_zap_docs import ZAP_DOC_COLLECTION_NAME
+from rag.parse_matter_xmls import MATTER_XML_COLLECTION_NAME
 import os
 
 
@@ -74,7 +74,7 @@ def retrieve(question):
 
 def write_retrieval_logs(question, retrieved_docs):
     log_file_name = "retrieval_log.txt"
-    log_path = os.path.join(os.path.dirname(__file__), "test", log_file_name)
+    log_path = os.path.join(os.path.dirname(__file__), "log", log_file_name)
     retrieved_docs.sort(key=lambda x: x["score"], reverse=True)
     with open(log_path, "w", encoding="utf-8") as f:
         f.write(f"🔍 Question: {question}\n\n")

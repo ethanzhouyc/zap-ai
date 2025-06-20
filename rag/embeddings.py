@@ -7,9 +7,9 @@ from requests.exceptions import SSLError
 import os
 import urllib3.exceptions
 
-from qdrant_db import client
-from parse_zap_docs import load_and_split_zap_docs, ZAP_DOC_COLLECTION_NAME
-from parse_matter_xmls import load_and_split_matter_xmls, MATTER_XML_COLLECTION_NAME
+from rag.qdrant_db import client
+from rag.parse_zap_docs import load_and_split_zap_docs, ZAP_DOC_COLLECTION_NAME
+from rag.parse_matter_xmls import load_and_split_matter_xmls, MATTER_XML_COLLECTION_NAME
 
 
 EMBEDDING_MODEL = "BAAI/bge-large-en-v1.5"
@@ -70,8 +70,8 @@ def create_and_store_embeddings(collection_name, parse_docs_fn):
         print("🔄 Preparing documents for embedding...")
         texts, textData = parse_docs_fn()
 
-        # 🔍 Write chunks to test/text-chunks.txt
-        log_path = os.path.join(os.path.dirname(__file__), "test", "text-chunks.txt")
+        # 🔍 Write chunks to log/text-chunks.txt
+        log_path = os.path.join(os.path.dirname(__file__), "log", "text-chunks.txt")
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         with open(log_path, "w", encoding="utf-8") as f:
             for i, text in enumerate(texts):

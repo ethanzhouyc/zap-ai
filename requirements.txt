@@ -7,3 +7,5 @@ sentence-transformers
 huggingface-hub
 
 qdrant-client
+
+streamlit

@@ -5,4 +5,4 @@ local_models/
 /qdrant_data/
 /rag/__pycache__
 /zap-docs/matter-spec/
-/rag/test/
+/rag/log/

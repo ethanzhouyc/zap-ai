@@ -1,4 +1,6 @@
-from api_services import get_llm_response
+from rag.api_services import get_llm_response
+from rag.retriever import retrieve
+import rag.config
 
 def generatePrompt(question, context):
     return f"""
@@ -29,7 +31,7 @@ def format_sources(sources):
     top = sources[0]
     others = sources[1:]
 
-    source_info = f"📖 **Top Source:** {top}"
+    source_info = f"📖 **Top Source:** {top}  "
     if others:
         source_info += f"\n📄 **Other Sources:** {', '.join(others)}"
     return source_info
@@ -41,12 +43,27 @@ def generate(question, context_docs, sources):
     prompt = generatePrompt(question, context)
 
     # Call the LLM API to generate an answer
-    response = get_llm_response(prompt, timeout=10)
-    answer = response.get("choices", [{}])[0].get("message", {}).get("content", "No answer generated.")
+    answer, hasException = get_llm_response(prompt, timeout=10)
+
+    if hasException:
+        return answer
+
+    answer_prefix = "💡 Answer: " if not rag.config.WEB_MODE else ""
 
     # Format the final response with the answer and source if the answer is not "I don't know."
-    if answer.strip().lower() == "i don't know.":
-        return f"💡 Answer: {answer}"
+    if answer.strip() == "I don't know.":
+        return f"{answer_prefix}{answer}"
     else:
         source_info = format_sources(sources)
-        return f"{source_info}\n\n💡 Answer: {answer}"
+        return f"{source_info}\n\n{answer_prefix}{answer}"
+
+
+def process_query(query, llm_model=None, web_mode=False):
+    """Process a user query and return the answer."""
+    if llm_model is not None:
+        rag.config.LLM_MODEL = llm_model
+    if web_mode:
+        rag.config.WEB_MODE = True
+    context_docs, sources = retrieve(query)
+    answer = generate(query, context_docs, sources)
+    return answer

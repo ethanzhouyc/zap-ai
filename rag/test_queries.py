@@ -1,7 +1,6 @@
 # Test queries for the RAG system
 
-from retriever import retrieve
-from llm_inference import generate
+from rag.generator import process_query
 
 test_queries = [
     "What is the architecture of frontend in ZAP?",
@@ -19,7 +18,6 @@ test_queries = [
 def run_test_queries():
     print('Running test queries...')
     for test_query in test_queries:
-        context_docs, _ = retrieve(test_query)
-        answer = generate(test_query, context_docs, )
+        answer = process_query(test_query)
         print(f"\n🔍 Question: {test_query}")
         print(f"💡 Answer:\n{answer}\n")
