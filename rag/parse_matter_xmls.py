@@ -208,4 +208,3 @@ def summarize_doc_sizes(docs):
     print(f"  - Max characters: {max_chars}")
     print(f"  - Average characters: {avg_chars:.2f}")
     print(f"  - Median characters: {median_chars}")
-

@@ -1,9 +1,8 @@
 # The main script to build a RAG-based AI model based on fetched documentation data.
 
-from embeddings import embed_documents
-from retriever import retrieve
-from llm_inference import generate
-from test_queries import run_test_queries
+from rag.embeddings import embed_documents
+from rag.generator import process_query
+from rag.test_queries import run_test_queries
 
 
 def interactive_loop():
@@ -17,9 +16,7 @@ def interactive_loop():
             run_test_queries()
             continue
 
-        context_docs, sources = retrieve(user_question)
-        answer = generate(user_question, context_docs, sources)
-
+        answer = process_query(user_question)
         print(f"\n\n{answer}\n\n")
 
 

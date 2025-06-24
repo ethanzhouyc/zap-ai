@@ -6,7 +6,7 @@ import requests
 import os
 
 zap_dev_doc_dir = "https://api.github.com/repos/project-chip/zap/contents/docs"
-zap_user_doc_directory = "./zap-docs/zap-user-docs"
+zap_user_doc_directory = "./data-sources/zap-user-docs"
 
 ZAP_DOC_COLLECTION_NAME = "zap_docs"
 

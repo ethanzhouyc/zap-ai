@@ -1,5 +1,5 @@
 # zap-ai
-A Retrieval-Augmented Generation (RAG)-based AI assistant for ZAP, enabling users to ask detailed questions on ZAP documentation, template generation, and Matter specifications.
+A Retrieval-Augmented Generation (RAG)-based AI assistant for ZAP, enabling users to ask detailed questions on ZAP documentation and Matter XMLs.
 
 ## Setup Instructions
 
@@ -19,16 +19,16 @@ Run the following command to create a `.env` file:
 ```
 cp .env.example .env
 ```
-Then open `.env` and replace the placeholder with your own API key.
+Then open `.env` and replace the placeholder with your own Silabs LiteLLM API key.
 
 ### 4. Run the Application
-```
-python rag/main.py
-```
 
-### 5. First-Time Setup FAQ
-- During setup, installing the local embedding model requires turning off the Silabs VPN.
-
-- Model download and document indexing may take a while to complete.
-
-- When asking questions, the app uses a Silabs-hosted LLM, so ensure you are connected to the Silabs VPN.
+You can run the application in two ways:
+- **From the command line:**
+  ```
+  python run-cli.py
+  ```
+- **From the Web UI:**
+  ```
+  streamlit run app.py
+  ```
